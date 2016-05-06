@@ -226,3 +226,16 @@ svn log http://foo.com/svn/trunk/code/  #显示代码目录的日志信息。
 	                             例如：
                                  servers:global:http-library=serf
 ```
+
+## 分支合并回基线
+
+当分支功能开发测试完毕后，将分支代码合并回主线
+
+```
+cd trunk
+
+svn up
+
+svn merge --reintegrate http://my-repo/my-working-branch
+```
+完成从分支代码合并回trunk的操作。由于branch曾经merge过trunk的一些修改，因此branch上的变化集既包括自身branch独有的修改，也包括trunk上的修改，并且独有的修改往往不是在连续的版本区间。此时，通过--reintegrate参数，可以仅从branch上合并该branch上独有的修改回trunk，避免产生合并冲突。
